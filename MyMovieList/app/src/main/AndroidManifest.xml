@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="edu.psu.avp5564.mymovielist">
 
+    <!-- To access Google+ APIs: -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,8 +12,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <!--android:name=".MainActivity"-->
-            <!--android:name=".activities.LoginActivity"-->
+
+        <!-- android:name=".MainActivity" -->
+        <!-- android:name=".activities.LoginActivity" -->
         <activity
             android:name=".activities.MainActivity"
             android:screenOrientation="portrait">
@@ -26,9 +30,9 @@
         <activity
             android:name=".activities.UsersListActivity"
             android:screenOrientation="portrait" />
-        <!--<activity-->
-            <!--android:name=".activities.MainActivity"-->
-            <!--android:screenOrientation="portrait" />-->
+        <!-- <activity -->
+        <!-- android:name=".activities.MainActivity" -->
+        <!-- android:screenOrientation="portrait" /> -->
     </application>
 
 </manifest>

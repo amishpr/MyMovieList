@@ -1,5 +1,6 @@
 package edu.psu.avp5564.mymovielist.activities;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -18,9 +19,12 @@ import android.view.MenuItem;
 import edu.psu.avp5564.mymovielist.fragments.MovieFragment;
 import edu.psu.avp5564.mymovielist.R;
 import edu.psu.avp5564.mymovielist.dummy.DummyContent;
+import edu.psu.avp5564.mymovielist.fragments.SearchFragment;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, MovieFragment.OnListFragmentInteractionListener {
+        implements NavigationView.OnNavigationItemSelectedListener, MovieFragment.OnListFragmentInteractionListener,
+        SearchFragment.OnFragmentInteractionListener
+    {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,7 +96,7 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_camera) {
             fragment = new MovieFragment();
         } else if (id == R.id.nav_gallery) {
-
+            fragment = new SearchFragment();
         } else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_manage) {
@@ -123,4 +127,9 @@ public class MainActivity extends AppCompatActivity
     public void onListFragmentInteraction(DummyContent.DummyItem item) {
 
     }
-}
+
+        @Override
+        public void onFragmentInteraction(Uri uri) {
+
+        }
+    }
