@@ -11,7 +11,6 @@ import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatTextView;
 import android.view.View;
 
-import edu.psu.avp5564.mymovielist.MainActivity;
 import edu.psu.avp5564.mymovielist.R;
 import edu.psu.avp5564.mymovielist.helpers.InputValidation;
 import edu.psu.avp5564.mymovielist.sql.DatabaseHelper;

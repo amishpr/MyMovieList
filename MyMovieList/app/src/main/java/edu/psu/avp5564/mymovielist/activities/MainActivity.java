@@ -1,4 +1,4 @@
-package edu.psu.avp5564.mymovielist;
+package edu.psu.avp5564.mymovielist.activities;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -15,6 +15,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import edu.psu.avp5564.mymovielist.fragments.MovieFragment;
+import edu.psu.avp5564.mymovielist.R;
 import edu.psu.avp5564.mymovielist.dummy.DummyContent;
 
 public class MainActivity extends AppCompatActivity
