@@ -1,16 +1,17 @@
 package edu.psu.avp5564.mymovielist.activities;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -26,22 +27,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.psu.avp5564.mymovielist.R;
-import edu.psu.avp5564.mymovielist.adapters.CustomListAdapter;
+import edu.psu.avp5564.mymovielist.adapters.MovieListAdapter;
 import edu.psu.avp5564.mymovielist.model.Movie;
 
-public class Search extends AppCompatActivity {
+public class SearchActivity extends AppCompatActivity {
 
     Button searchButton;
     EditText searchText;
-    TextView txtJson;
+//    TextView txtJson;
     ProgressDialog pd;
 
-    CustomListAdapter adapter;
+    MovieListAdapter adapter;
 //    ArrayAdapter<Movie> adapter;
-    ListView listView1;
+    ListView searchMovieListView;
 
     public static List<Movie> allMovies = new ArrayList<Movie>();
-    String[] itemname;
+    String[] numberOfMovies;
 
     final String apiURLPart1 = "https://api.themoviedb.org/3/search/movie?api_key=625045ffe79af1aa6c205bfd8da97070&language=en-US&query=";
     final String apiURLPart2 = "&page=1&include_adult=false";
@@ -55,25 +56,23 @@ public class Search extends AppCompatActivity {
         searchText   = (EditText) findViewById(R.id.searchText);
 //        txtJson = (TextView) findViewById(R.id.tvJsonItem);
 
-        listView1 = (ListView) findViewById(R.id.listView1);
+        searchMovieListView = (ListView) findViewById(R.id.searchMovieListView);
 
         Movie movie = new Movie();
         movie.setId("0");
-        movie.setTitle("Test");
-        movie.setReleaseDate("1997-03-12");
-        movie.setPosterURL("https://image.tmdb.org/t/p/w200_and_h300_bestv2/adw6Lq9FiC9zjYEpOqfq03ituwp.jpg");
+        movie.setTitle(" ");
+        movie.setReleaseDate(" ");
+        movie.setPosterURL(" ");
 
-        itemname = new String[]{
-                "TEST",
-        };
+        numberOfMovies = new String[]{"0"};
 
         allMovies.add(movie);
 
-        adapter = new CustomListAdapter(this, itemname, allMovies);
+        adapter = new MovieListAdapter(this, numberOfMovies, allMovies);
 
 //        adapter = new ArrayAdapter<Movie>(this, android.R.layout.simple_list_item_1, allMovies);
 
-        listView1.setAdapter(adapter);
+        searchMovieListView.setAdapter(adapter);
 
 
         searchButton.setOnClickListener(
@@ -88,21 +87,43 @@ public class Search extends AppCompatActivity {
                         new JsonTask().execute(searchURL.toString());
                     }
                 });
+
+        searchMovieListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+                Movie selectedMovie = allMovies.get(+position);
+                String selectedMovieTitle = allMovies.get(+position).getTitle();
+
+                Toast.makeText(getApplicationContext(), selectedMovieTitle, Toast.LENGTH_SHORT).show();
+
+                createMoviePage(selectedMovie);
+
+            }
+        });
+    }
+
+    public void createMoviePage(Movie movie) {
+
+        Intent intent = new Intent(this, MoviePageActivity.class);
+        intent.putExtra("serialize_data", movie);
+        startActivity(intent);
     }
 
     public void updateAdapter() {
 //        adapter = new ArrayAdapter<Movie>(this, android.R.layout.simple_list_item_1, allMovies);
 
-        itemname = new String[allMovies.size()];
+        numberOfMovies = new String[allMovies.size()];
 
         for(int i = 0; i < allMovies.size(); i++)
         {
-            itemname[i] = "yes";
+            numberOfMovies[i] = "yes";
         }
 
         adapter.notifyDataSetChanged();
-        adapter = new CustomListAdapter(this, itemname, allMovies);
-        listView1.setAdapter(adapter);
+        adapter = new MovieListAdapter(this, numberOfMovies, allMovies);
+        searchMovieListView.setAdapter(adapter);
     }
 
     // Citation:
@@ -112,7 +133,7 @@ public class Search extends AppCompatActivity {
         protected void onPreExecute() {
             super.onPreExecute();
 
-            pd = new ProgressDialog(Search.this);
+            pd = new ProgressDialog(SearchActivity.this);
             pd.setMessage("Please wait");
             pd.setCancelable(false);
             pd.show();
@@ -191,12 +212,35 @@ public class Search extends AppCompatActivity {
                         String poster_path = resultObject.getString("poster_path");
                         String overview = resultObject.getString("overview");
                         String release_date = resultObject.getString("release_date");
+                        String vote_average = resultObject.getString("vote_average");
                         movie.setId(id);
                         movie.setTitle(title);
                         movie.setPosterURL(poster_path);
                         movie.setOverview(overview);
                         movie.setReleaseDate(release_date);
-                        allMovies.add(movie);
+                        movie.setRating(vote_average);
+
+                        boolean isNotEmpty = true;
+
+                        if(movie.getId() == "" || movie.getId() == null) {
+                            isNotEmpty = false;
+                        }
+                        else if(movie.getTitle() == "" || movie.getTitle() == null) {
+                            isNotEmpty = false;
+                        }
+                        else if(movie.getPosterURL() == "" || movie.getPosterURL() == null) {
+                            isNotEmpty = false;
+                        }
+                        else if(movie.getOverview() == "" || movie.getOverview() == null) {
+                            isNotEmpty = false;
+                        }
+                        else if(movie.getReleaseDate() == "" || movie.getReleaseDate() == null) {
+                            isNotEmpty = false;
+                        }
+                        if(isNotEmpty)
+                        {
+                            allMovies.add(movie);
+                        }
                     }
                     Log.d("Array: ", allMovies.toString());
 

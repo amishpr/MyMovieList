@@ -20,33 +20,35 @@ import java.util.List;
 import edu.psu.avp5564.mymovielist.R;
 import edu.psu.avp5564.mymovielist.model.Movie;
 
-public class CustomListAdapter extends ArrayAdapter<String> {
+public class MovieListAdapter extends ArrayAdapter<String> {
 
     private final Activity context;
     private final String[] itemname;
     private List<Movie> movieArray = new ArrayList<>();
 
-    public CustomListAdapter(Activity context, String[] itemname, List<Movie> movieArray) {
+    public MovieListAdapter(Activity context, String[] itemname, List<Movie> movieArray) {
         super(context, R.layout.mylist, itemname);
         // TODO Auto-generated constructor stub
 
-        this.context=context;
-        this.itemname=itemname;
-        this.movieArray=movieArray;
+        this.context = context;
+        this.itemname = itemname;
+        this.movieArray = movieArray;
     }
 
     public View getView(int position,View view,ViewGroup parent) {
         LayoutInflater inflater=context.getLayoutInflater();
         View rowView=inflater.inflate(R.layout.mylist, null,true);
 
-        TextView txtTitle = (TextView) rowView.findViewById(R.id.item);
-        ImageView imageView = (ImageView) rowView.findViewById(R.id.icon);
-        TextView extratxt = (TextView) rowView.findViewById(R.id.textView1);
+        TextView movieTitleList = (TextView) rowView.findViewById(R.id.titleTextList);
+        ImageView moviePosterList = (ImageView) rowView.findViewById(R.id.posterTextList);
+        TextView movieReleaseDateList = (TextView) rowView.findViewById(R.id.releaseDateTextList);
+        TextView movieOverviewList = (TextView) rowView.findViewById(R.id.overviewTextList);
 
-        txtTitle.setText(movieArray.get(position).getTitle());
-        Picasso.get().load(movieArray.get(position).getPosterURL()).into(imageView);
+        movieTitleList.setText(movieArray.get(position).getTitle());
+        Picasso.get().load(movieArray.get(position).getPosterURL()).into(moviePosterList);
 //        imageView.setImageResource(imgid[position]);
-        extratxt.setText(movieArray.get(position).getReleaseDate());
+        movieReleaseDateList.setText(movieArray.get(position).getReleaseDate());
+        movieOverviewList.setText(movieArray.get(position).getOverview());
         return rowView;
 
     };
