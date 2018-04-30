@@ -1,5 +1,6 @@
 package edu.psu.avp5564.mymovielist.activities;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -96,7 +97,9 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_camera) {
             fragment = new MovieFragment();
         } else if (id == R.id.nav_gallery) {
-            fragment = new SearchFragment();
+            Intent myIntent = new Intent(this, Search.class);
+            startActivity(myIntent);
+//            fragment = new SearchFragment();
         } else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_manage) {

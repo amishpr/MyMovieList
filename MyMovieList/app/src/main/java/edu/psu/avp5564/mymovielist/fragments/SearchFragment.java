@@ -4,9 +4,12 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 
 import edu.psu.avp5564.mymovielist.R;
 
@@ -19,6 +22,11 @@ import edu.psu.avp5564.mymovielist.R;
  * create an instance of this fragment.
  */
 public class SearchFragment extends Fragment {
+
+//    Button searchButton;
+//    EditText searchText;
+
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -59,6 +67,18 @@ public class SearchFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+//        searchButton = (Button) getView().findViewById(R.id.searchButton);
+//        searchText   = (EditText) getView().findViewById(R.id.searchText);
+//
+//        searchButton.setOnClickListener(
+//                new View.OnClickListener()
+//                {
+//                    public void onClick(View view)
+//                    {
+//                        Log.v("~EditText:", searchText.getText().toString());
+//                    }
+//                });
     }
 
     @Override
