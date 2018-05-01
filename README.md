@@ -27,7 +27,7 @@ In SearchActivity.java, a custom AsyncTask is used to retrieve and process the J
 
 ## Screen shots
 
-![alt text](https://i.imgur.com/P6NPm8X.png =250x250)
-![alt text](https://i.imgur.com/J84Mwqp.png =250x250)
-![alt text](https://i.imgur.com/mbBAMft.png =250x250)
-![alt text](https://i.imgur.com/9keFXH1.png =250x250)
+![alt text](https://i.imgur.com/P6NPm8X.png)
+![alt text](https://i.imgur.com/J84Mwqp.png)
+![alt text](https://i.imgur.com/mbBAMft.png)
+![alt text](https://i.imgur.com/9keFXH1.png)
