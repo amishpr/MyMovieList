@@ -49,4 +49,27 @@
     <string name="search">Search</string>
     <string name="settings">Settings</string>
     <string name="log_out">Log out</string>
+
+    <string-array name="rating_array">
+        <item>-</item>
+        <item>10</item>
+        <item>9</item>
+        <item>8</item>
+        <item>7</item>
+        <item>6</item>
+        <item>5</item>
+        <item>4</item>
+        <item>3</item>
+        <item>2</item>
+        <item>1</item>
+    </string-array>
+
+    <string-array name="status_array">
+        <item>-</item>
+        <item>Watched</item>
+        <item>Plan To Watch</item>
+        <item>Dropped</item>
+        <item>On Hold</item>
+    </string-array>
+
 </resources>

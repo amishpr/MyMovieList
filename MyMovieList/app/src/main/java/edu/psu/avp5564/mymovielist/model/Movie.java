@@ -16,13 +16,15 @@ public class Movie implements Serializable {
     private String overview;
     private String releaseDate;
     private String rating;
+    private String status;
+    private String personalRating;
     private boolean isAdded;
 
     public Movie() {
 
     }
 
-    public Movie(String id, String title, String posterURL, String overview, String releaseDate, String rating, boolean isAdded) {
+    public Movie(String id, String title, String posterURL, String overview, String releaseDate, String rating, boolean isAdded, String status, String personalRating) {
         this.id = id;
         this.title = title;
         this.posterURL = posterRequestURL + posterURL;
@@ -30,6 +32,30 @@ public class Movie implements Serializable {
         this.releaseDate = releaseDate;
         this.rating = rating;
         this.isAdded = isAdded;
+        this.status = status;
+        this.personalRating = personalRating;
+    }
+
+    public String getStatus() {
+        if(status == null) {
+            status = "-";
+        }
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getPersonalRating() {
+        if(status == null) {
+            status = "-";
+        }
+        return personalRating;
+    }
+
+    public void setPersonalRating(String personalRating) {
+        this.personalRating = personalRating;
     }
 
     public boolean getIsAdded() {

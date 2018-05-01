@@ -7,9 +7,15 @@ import android.preference.PreferenceManager;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,7 +30,7 @@ import java.util.List;
 import edu.psu.avp5564.mymovielist.R;
 import edu.psu.avp5564.mymovielist.model.Movie;
 
-public class MoviePageActivity extends AppCompatActivity {
+public class MoviePageActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     ImageView moviePoster;
 
@@ -33,9 +39,15 @@ public class MoviePageActivity extends AppCompatActivity {
     TextView movieOverview;
     TextView movieRating;
 
+    EditText personalRatingText;
+
+    Spinner statusSpinner;
+
     ConstraintLayout moviePageLayout;
 
     Button addButton;
+
+    String personalRating;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,12 +65,36 @@ public class MoviePageActivity extends AppCompatActivity {
         movieOverview = (TextView) findViewById(R.id.movieOverview);
         movieRating = (TextView) findViewById(R.id.movieRating);
         addButton = (Button) findViewById(R.id.addButton);
+        personalRatingText = (EditText) findViewById(R.id.personalRatingText);
 
         Picasso.get().load(movie.getPosterURL()).into(moviePoster);
         movieTitle.setText(movie.getTitle());
         movieReleaseDate.setText(movie.getReleaseDate());
         movieOverview.setText(movie.getOverview());
         movieRating.setText("Rating: " + movie.getRating());
+        personalRatingText.setText(movie.getPersonalRating());
+
+        personalRatingText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                movie.setPersonalRating(s.toString());
+                personalRating = s.toString();
+            }
+        });
+
+        statusSpinner = (Spinner) findViewById(R.id.statusSpinner);
+        ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this,
+                R.array.status_array, android.R.layout.simple_spinner_item);
+        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        statusSpinner.setAdapter(adapter2);
 
         if(movie.getIsAdded() == true)
         {
@@ -84,8 +120,17 @@ public class MoviePageActivity extends AppCompatActivity {
                 });
     }
 
+    public void setRating(String rating) {
+        personalRatingText.setText(rating);
+    }
+
     @Override
     protected void onResume() {
+
+        if(personalRating != null)
+        {
+            setRating(personalRating);
+        }
         readTheme(moviePageLayout);
         super.onResume();
     }
@@ -147,4 +192,29 @@ public class MoviePageActivity extends AppCompatActivity {
             constraintLayout.setBackgroundColor(Color.RED);
         }
     }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
+    }
+
+//    @Override
+//    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//        switch(parent.getId()) {
+//            case R.id.ratingSpinner:
+//                break;
+//             case R.id.statusSpinner:
+//                 break;
+//        }
+//    }
+//
+//    @Override
+//    public void onNothingSelected(AdapterView<?> parent) {
+//        Toast.makeText(this, "You selected nothing", Toast.LENGTH_LONG).show();
+//    }
 }
