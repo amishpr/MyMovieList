@@ -2,7 +2,11 @@ package edu.psu.avp5564.mymovielist.activities;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.AsyncTask;
+import android.preference.PreferenceManager;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -39,6 +43,9 @@ public class SearchActivity extends AppCompatActivity {
     MovieListAdapter adapter;
     ListView searchMovieListView;
 
+    ConstraintLayout searchLayout;
+
+
     public static List<Movie> allMovies = new ArrayList<Movie>();
     String[] numberOfMovies;
 
@@ -49,6 +56,10 @@ public class SearchActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+
+        // Read theme
+        searchLayout = (ConstraintLayout) findViewById(R.id.searchLayout);
+        readTheme(searchLayout);
 
         searchButton = (Button) findViewById(R.id.searchButton);
         searchText   = (EditText) findViewById(R.id.searchText);
@@ -106,6 +117,12 @@ public class SearchActivity extends AppCompatActivity {
         Intent intent = new Intent(this, MoviePageActivity.class);
         intent.putExtra("serialize_data", movie);
         startActivity(intent);
+    }
+
+    @Override
+    protected void onResume() {
+        readTheme(searchLayout);
+        super.onResume();
     }
 
     public void updateAdapter() {
@@ -246,6 +263,36 @@ public class SearchActivity extends AppCompatActivity {
             }
         }
     }
+
+    public void readTheme(ConstraintLayout constraintLayout) {
+        SharedPreferences appSharedPrefs = PreferenceManager
+                .getDefaultSharedPreferences(this.getApplicationContext());
+
+        String theme = appSharedPrefs.getString(getString(R.string.THEME_KEY), null);
+
+        setTheme(theme, constraintLayout);
+    }
+
+    public void setTheme(String theme, ConstraintLayout constraintLayout) {
+
+        if (theme.equals(getString(R.string.WHITE_CAP))) {
+//            setTheme(R.style.AppTheme);
+            constraintLayout.setBackgroundColor(Color.WHITE);
+        }
+        else if (theme.equals(getString(R.string.GRAY_CAP))) {
+            constraintLayout.setBackgroundColor(Color.GRAY);
+        }
+        else if (theme.equals(getString(R.string.GREEN_CAP))) {
+            constraintLayout.setBackgroundColor(Color.GREEN);
+        }
+        else if (theme.equals(getString(R.string.BLUE_CAP))) {
+            constraintLayout.setBackgroundColor(Color.BLUE);
+        }
+        else if (theme.equals(getString(R.string.RED_CAP))) {
+            constraintLayout.setBackgroundColor(Color.RED);
+        }
+    }
+
 }
 
 //}

@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="edu.psu.avp5564.mymovielist.activities.MoviePageActivity">
+    tools:context="edu.psu.avp5564.mymovielist.activities.MoviePageActivity"
+    android:id="@+id/moviePageLayout">
 
     <ImageView
         android:id="@+id/moviePoster"

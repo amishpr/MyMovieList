@@ -1,8 +1,12 @@
 package edu.psu.avp5564.mymovielist.activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -27,6 +31,8 @@ public class MainActivity extends AppCompatActivity
         SearchFragment.OnFragmentInteractionListener
     {
 
+        DrawerLayout drawer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,16 +40,20 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+//        DrawerLayout mainLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+
+//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+//            }
+//        });
+
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        readTheme(drawer);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
@@ -63,7 +73,13 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    @Override
+        @Override
+        protected void onResume() {
+            readTheme(drawer);
+            super.onResume();
+        }
+
+        @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
@@ -143,5 +159,34 @@ public class MainActivity extends AppCompatActivity
         @Override
         public void onFragmentInteraction(Uri uri) {
 
+        }
+
+        public void readTheme(DrawerLayout drawerLayout) {
+            SharedPreferences appSharedPrefs = PreferenceManager
+                    .getDefaultSharedPreferences(this.getApplicationContext());
+
+            String theme = appSharedPrefs.getString(getString(R.string.THEME_KEY), null);
+
+            setTheme(theme, drawerLayout);
+        }
+
+        public void setTheme(String theme, DrawerLayout drawerLayout) {
+
+            if (theme.equals(getString(R.string.WHITE_CAP))) {
+//            setTheme(R.style.AppTheme);
+                drawerLayout.setBackgroundColor(Color.WHITE);
+            }
+            else if (theme.equals(getString(R.string.GRAY_CAP))) {
+                drawerLayout.setBackgroundColor(Color.GRAY);
+            }
+            else if (theme.equals(getString(R.string.GREEN_CAP))) {
+                drawerLayout.setBackgroundColor(Color.GREEN);
+            }
+            else if (theme.equals(getString(R.string.BLUE_CAP))) {
+                drawerLayout.setBackgroundColor(Color.BLUE);
+            }
+            else if (theme.equals(getString(R.string.RED_CAP))) {
+                drawerLayout.setBackgroundColor(Color.RED);
+            }
         }
     }

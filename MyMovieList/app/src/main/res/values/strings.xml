@@ -28,4 +28,21 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="background_colors">Background Colors</string>
+    <string name="white">White</string>
+    <string name="gray">Gray</string>
+    <string name="green">Green</string>
+    <string name="blue">Blue</string>
+    <string name="red">Red</string>
+    <string name="WHITE_CAP">WHITE</string>
+    <string name="GRAY_CAP">GRAY</string>
+    <string name="GREEN_CAP">GREEN</string>
+    <string name="BLUE_CAP">BLUE</string>
+    <string name="RED_CAP">RED</string>
+    <string name="setbgwhite">Set background to white</string>
+    <string name="setbggray">Set background to gray</string>
+    <string name="setbggreen">Set background to green</string>
+    <string name="setbgblue">Set background to blue</string>
+    <string name="setbgred">Set background to red</string>
+    <string name="THEME_KEY">Theme</string>
 </resources>

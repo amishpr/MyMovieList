@@ -2,7 +2,9 @@ package edu.psu.avp5564.mymovielist.activities;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.preference.PreferenceManager;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -31,6 +33,8 @@ public class MoviePageActivity extends AppCompatActivity {
     TextView movieOverview;
     TextView movieRating;
 
+    ConstraintLayout moviePageLayout;
+
     Button addButton;
 
     @Override
@@ -39,6 +43,9 @@ public class MoviePageActivity extends AppCompatActivity {
         setContentView(R.layout.activity_movie_page);
         // Using getSerializableExtra(String key) method
         final Movie movie = (Movie) getIntent().getSerializableExtra("serialize_data");
+
+        moviePageLayout = (ConstraintLayout) findViewById(R.id.moviePageLayout);
+        readTheme(moviePageLayout);
 
         moviePoster = (ImageView) findViewById(R.id.moviePoster);
         movieTitle = (TextView) findViewById(R.id.movieTitle);
@@ -77,6 +84,11 @@ public class MoviePageActivity extends AppCompatActivity {
                 });
     }
 
+    @Override
+    protected void onResume() {
+        readTheme(moviePageLayout);
+        super.onResume();
+    }
 
     // Reference:
     // https://stackoverflow.com/questions/14981233/android-arraylist-of-custom-objects-save-to-sharedpreferences-serializable
@@ -105,5 +117,34 @@ public class MoviePageActivity extends AppCompatActivity {
 
         prefsEditor.commit();
 
+    }
+
+    public void readTheme(ConstraintLayout constraintLayout) {
+        SharedPreferences appSharedPrefs = PreferenceManager
+                .getDefaultSharedPreferences(this.getApplicationContext());
+
+        String theme = appSharedPrefs.getString(getString(R.string.THEME_KEY), null);
+
+        setTheme(theme, constraintLayout);
+    }
+
+    public void setTheme(String theme, ConstraintLayout constraintLayout) {
+
+        if (theme.equals(getString(R.string.WHITE_CAP))) {
+//            setTheme(R.style.AppTheme);
+            constraintLayout.setBackgroundColor(Color.WHITE);
+        }
+        else if (theme.equals(getString(R.string.GRAY_CAP))) {
+            constraintLayout.setBackgroundColor(Color.GRAY);
+        }
+        else if (theme.equals(getString(R.string.GREEN_CAP))) {
+            constraintLayout.setBackgroundColor(Color.GREEN);
+        }
+        else if (theme.equals(getString(R.string.BLUE_CAP))) {
+            constraintLayout.setBackgroundColor(Color.BLUE);
+        }
+        else if (theme.equals(getString(R.string.RED_CAP))) {
+            constraintLayout.setBackgroundColor(Color.RED);
+        }
     }
 }

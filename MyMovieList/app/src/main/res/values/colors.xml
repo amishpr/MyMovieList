@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimary_Green">#479c4d</color>
     <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorPrimaryDark_Green">#2b692e</color>
     <color name="colorAccent">#FF4081</color>
     <color name="colorBackground">#413e4f</color>
     <color name="colorText">#FFFFFF</color>
     <color name="colorTextHint">#51d8c7</color>
+
+    <color name="welcome_text_color">#FF0000</color>
+    <color name="sky_blue">#6698FF</color>
+    <color name="green_apple">#5bff55</color>
 </resources>
