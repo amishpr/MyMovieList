@@ -44,10 +44,6 @@ public class MovieListActivity extends AppCompatActivity {
 
         movieListView = (ListView) findViewById(R.id.movieListView);
 
-        if(myMovies != null) {
-            updateAdapter();
-        }
-
         movieListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
@@ -66,9 +62,7 @@ public class MovieListActivity extends AppCompatActivity {
 
     @Override
     protected void onResume() {
-        if(myMovies != null) {
-            updateAdapter();
-        }
+        updateAdapter();
         super.onResume();
     }
 
@@ -86,40 +80,38 @@ public class MovieListActivity extends AppCompatActivity {
         SharedPreferences appSharedPrefs = PreferenceManager
                 .getDefaultSharedPreferences(this.getApplicationContext());
 
-        Movie movie = new Movie();
+            Movie movie = new Movie();
 
-        List<Movie> currentList = new ArrayList<>();
+            List<Movie> currentList = new ArrayList<>();
 
-        Map<String, ?> allEntries = appSharedPrefs.getAll();
-        for (Map.Entry<String, ?> entry : allEntries.entrySet())
-        {
-            Log.d("map values", entry.getKey() + ": " + entry.getValue().toString());
+            Map<String, ?> allEntries = appSharedPrefs.getAll();
+            for (Map.Entry<String, ?> entry : allEntries.entrySet())
+            {
+                Log.d("map values", entry.getKey() + ": " + entry.getValue().toString());
 
-            Gson gson = new Gson();
-            String json = appSharedPrefs.getString(entry.getKey().toString(), "");
-            movie = gson.fromJson(json, Movie.class);
+                Gson gson = new Gson();
+                String json = appSharedPrefs.getString(entry.getKey(), "");
+                movie = gson.fromJson(json, Movie.class);
 
-            currentList.add(movie);
-        }
+                currentList.add(movie);
+            }
 
-        Set<Movie> movieListWithoutDuplicates = new LinkedHashSet<Movie>(currentList);
+            Set<Movie> movieListWithoutDuplicates = new LinkedHashSet<Movie>(currentList);
 
-        // now let's clear the ArrayList so that we can copy all elements from LinkedHashSet
-        myMovies.clear();
+            // now let's clear the ArrayList so that we can copy all elements from LinkedHashSet
+            myMovies.clear();
 
-        // copying elements but without any duplicates
-        myMovies.addAll(movieListWithoutDuplicates);
+            // copying elements but without any duplicates
+            myMovies.addAll(movieListWithoutDuplicates);
 
+            numberOfMovies = new String[myMovies.size()];
 
-        numberOfMovies = new String[myMovies.size()];
+            for(int j = 0; j < myMovies.size(); j++)
+            {
+                numberOfMovies[j] = "movies";
+            }
 
-        for(int j = 0; j < myMovies.size(); j++)
-        {
-            numberOfMovies[j] = "movies";
-        }
-
-        adapter = new MovieListAdapter(this, numberOfMovies, myMovies);
-        movieListView.setAdapter(adapter);
-
+            adapter = new MovieListAdapter(this, numberOfMovies, myMovies);
+            movieListView.setAdapter(adapter);
     }
 }

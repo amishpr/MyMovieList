@@ -35,7 +35,8 @@
         <!-- android:screenOrientation="portrait" /> -->
         <activity android:name=".activities.SearchActivity" />
         <activity android:name=".activities.MoviePageActivity" />
-        <activity android:name=".activities.MovieListActivity"></activity>
+        <activity android:name=".activities.MovieListActivity" />
+        <activity android:name=".activities.SettingsActivity"></activity>
     </application>
 
 </manifest>

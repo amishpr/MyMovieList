@@ -79,6 +79,8 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Intent myIntent = new Intent(this, SettingsActivity.class);
+            startActivity(myIntent);
             return true;
         }
 
@@ -94,17 +96,20 @@ public class MainActivity extends AppCompatActivity
         Fragment fragment = null;
         String title = getString(R.string.app_name);
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_list) {
 
             Intent myIntent = new Intent(this, MovieListActivity.class);
             startActivity(myIntent);
 //            fragment = new MovieFragment();
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.nav_search) {
             Intent myIntent = new Intent(this, SearchActivity.class);
             startActivity(myIntent);
 //            fragment = new SearchFragment();
         }
-//        } else if (id == R.id.nav_slideshow) {
+        else if (id == R.id.nav_settings) {
+            Intent myIntent = new Intent(this, SettingsActivity.class);
+            startActivity(myIntent);
+        }
 //
 //        } else if (id == R.id.nav_manage) {
 //
