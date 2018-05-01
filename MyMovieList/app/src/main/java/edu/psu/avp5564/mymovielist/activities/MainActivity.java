@@ -95,7 +95,10 @@ public class MainActivity extends AppCompatActivity
         String title = getString(R.string.app_name);
 
         if (id == R.id.nav_camera) {
-            fragment = new MovieFragment();
+
+            Intent myIntent = new Intent(this, MovieListActivity.class);
+            startActivity(myIntent);
+//            fragment = new MovieFragment();
         } else if (id == R.id.nav_gallery) {
             Intent myIntent = new Intent(this, SearchActivity.class);
             startActivity(myIntent);

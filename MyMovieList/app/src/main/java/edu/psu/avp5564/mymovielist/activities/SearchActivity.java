@@ -34,11 +34,9 @@ public class SearchActivity extends AppCompatActivity {
 
     Button searchButton;
     EditText searchText;
-//    TextView txtJson;
     ProgressDialog pd;
 
     MovieListAdapter adapter;
-//    ArrayAdapter<Movie> adapter;
     ListView searchMovieListView;
 
     public static List<Movie> allMovies = new ArrayList<Movie>();
@@ -54,8 +52,6 @@ public class SearchActivity extends AppCompatActivity {
 
         searchButton = (Button) findViewById(R.id.searchButton);
         searchText   = (EditText) findViewById(R.id.searchText);
-//        txtJson = (TextView) findViewById(R.id.tvJsonItem);
-
         searchMovieListView = (ListView) findViewById(R.id.searchMovieListView);
 
         Movie movie = new Movie();
@@ -69,8 +65,6 @@ public class SearchActivity extends AppCompatActivity {
         allMovies.add(movie);
 
         adapter = new MovieListAdapter(this, numberOfMovies, allMovies);
-
-//        adapter = new ArrayAdapter<Movie>(this, android.R.layout.simple_list_item_1, allMovies);
 
         searchMovieListView.setAdapter(adapter);
 
@@ -106,13 +100,15 @@ public class SearchActivity extends AppCompatActivity {
 
     public void createMoviePage(Movie movie) {
 
+        // Reference:
+        // https://www.techjini.com/blog/passing-objects-via-intent-in-android/
+
         Intent intent = new Intent(this, MoviePageActivity.class);
         intent.putExtra("serialize_data", movie);
         startActivity(intent);
     }
 
     public void updateAdapter() {
-//        adapter = new ArrayAdapter<Movie>(this, android.R.layout.simple_list_item_1, allMovies);
 
         numberOfMovies = new String[allMovies.size()];
 
@@ -126,7 +122,7 @@ public class SearchActivity extends AppCompatActivity {
         searchMovieListView.setAdapter(adapter);
     }
 
-    // Citation:
+    // Reference:
     // https://stackoverflow.com/questions/33229869/get-json-data-from-url-using-android
     private class JsonTask extends AsyncTask<String, String, String> {
 
@@ -199,10 +195,6 @@ public class SearchActivity extends AppCompatActivity {
 
                     JSONObject reader = new JSONObject(result);
 
-//                    Log.d("My App", obj.toString());
-//                    Log.d("title value ", obj.getString("title"));
-
-
                     JSONArray results = reader.getJSONArray("results");
                     for ( int i = 0; i < results.length(); i++) {
                         JSONObject resultObject = results.getJSONObject(i);
@@ -245,15 +237,12 @@ public class SearchActivity extends AppCompatActivity {
                     Log.d("Array: ", allMovies.toString());
 
                     updateAdapter();
-//                    new updateAdapterTask().execute();
-//                    txtJson.setText(allMovies.toString());
 
                 } catch (Throwable tx) {
                     Log.e("JSON_ERROR", "Could not parse malformed JSON: \"" + result + "\"");
                 }
             }else {
-
-//                txtJson.setText(result);
+                Toast.makeText(getApplicationContext(), "No movies found", Toast.LENGTH_LONG).show();
             }
         }
     }

@@ -26,7 +26,7 @@ public class MovieListAdapter extends ArrayAdapter<String> {
     private List<Movie> movieArray = new ArrayList<>();
 
     public MovieListAdapter(Activity context, String[] itemname, List<Movie> movieArray) {
-        super(context, R.layout.item_search_movie_list, itemname);
+        super(context, R.layout.item_movie_list, itemname);
         // TODO Auto-generated constructor stub
 
         this.context = context;
@@ -35,8 +35,8 @@ public class MovieListAdapter extends ArrayAdapter<String> {
     }
 
     public View getView(int position,View view,ViewGroup parent) {
-        LayoutInflater inflater=context.getLayoutInflater();
-        View rowView=inflater.inflate(R.layout.item_search_movie_list, null,true);
+        LayoutInflater inflater = context.getLayoutInflater();
+        View rowView = inflater.inflate(R.layout.item_movie_list, null,true);
 
         TextView movieTitleList = (TextView) rowView.findViewById(R.id.titleTextList);
         ImageView moviePosterList = (ImageView) rowView.findViewById(R.id.posterTextList);
@@ -45,10 +45,8 @@ public class MovieListAdapter extends ArrayAdapter<String> {
 
         movieTitleList.setText(movieArray.get(position).getTitle());
         Picasso.get().load(movieArray.get(position).getPosterURL()).into(moviePosterList);
-//        imageView.setImageResource(imgid[position]);
         movieReleaseDateList.setText(movieArray.get(position).getReleaseDate());
         movieOverviewList.setText(movieArray.get(position).getOverview());
         return rowView;
-
     };
 }

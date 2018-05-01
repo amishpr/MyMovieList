@@ -16,18 +16,28 @@ public class Movie implements Serializable {
     private String overview;
     private String releaseDate;
     private String rating;
+    private boolean isAdded;
 
     public Movie() {
 
     }
 
-    public Movie(String id, String title, String posterURL, String overview, String releaseDate, String rating) {
+    public Movie(String id, String title, String posterURL, String overview, String releaseDate, String rating, boolean isAdded) {
         this.id = id;
         this.title = title;
         this.posterURL = posterRequestURL + posterURL;
         this.overview = overview;
         this.releaseDate = releaseDate;
         this.rating = rating;
+        this.isAdded = isAdded;
+    }
+
+    public boolean getIsAdded() {
+        return isAdded;
+    }
+
+    public void setAdded(boolean added) {
+        isAdded = added;
     }
 
     public String getPosterRequestURL() {
