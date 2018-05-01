@@ -24,3 +24,10 @@ SharedPreferences is used to both store the user's movie list and to store what 
 ## AsyncTask
 
 In SearchActivity.java, a custom AsyncTask is used to retrieve and process the JSON array that is returned from TMDb's API.
+
+## Screen shots
+
+![alt text](https://i.imgur.com/P6NPm8X.png)
+![alt text](https://i.imgur.com/J84Mwqp.png)
+![alt text](https://i.imgur.com/mbBAMft.png)
+![alt text](https://i.imgur.com/9keFXH1.png)
