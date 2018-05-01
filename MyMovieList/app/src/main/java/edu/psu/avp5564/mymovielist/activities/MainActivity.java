@@ -126,6 +126,10 @@ public class MainActivity extends AppCompatActivity
             Intent myIntent = new Intent(this, SettingsActivity.class);
             startActivity(myIntent);
         }
+        else if (id == R.id.nav_logout) {
+            Intent myIntent = new Intent(this, LoginActivity.class);
+            startActivity(myIntent);
+        }
 //
 //        } else if (id == R.id.nav_manage) {
 //
